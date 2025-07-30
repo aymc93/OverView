@@ -1,0 +1,255 @@
+body, html, #root, .App {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: visible;
+  font-family: sans-serif;
+  background-color: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.orb {
+  position: absolute;
+  top: 50%;              /* centrer verticalement */
+  left: 50%;             /* centrer horizontalement */
+  width: 600px;
+  height: 600px;
+  border: 10px solid #ff0000;
+  border-radius: 50%;
+  background: #111;
+  box-shadow: 0 0 40px 20px #ff0000;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out; /* si pas déjà mis */
+}
+
+
+
+.content {
+  z-index: 1;
+  color: white;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* Zoom de l'orbe */
+.orb.zoom-out {
+  transform: translate(-50%, -50%) scale(20);
+  opacity: 0;
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+}
+
+/* Intro avec bouton centré */
+.intro {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  text-align: center;
+}
+
+.intro button {
+  font-size: 1.5rem;
+  padding: 0.8rem 2rem;
+  background-color: transparent;
+  border: #ff0000;
+  border-style: solid;
+  border-radius: 8px;
+  color: #ff0000;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.intro button:hover {
+  background-color: #cc0000;
+}
+
+/* Contenu principal caché au début */
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* prend toute la hauteur */
+  width: 100vw;  /* prend toute la largeur */
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  color: white;
+  transition: opacity 1s ease-in;
+}
+
+.main-content.visible {
+  opacity: 1;
+}
+
+
+.intro.fade-out {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none; /* empêche de recliquer pendant le fade */
+}
+
+.magnet-wrapper {
+  position: relative;
+  width: 600px;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.magnet-btn {
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  background: transparent;
+  border: #ff0000;
+  color: #ff0000;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.magnet-btn:hover {
+  box-shadow: 0 0 20px #ff0000cc;
+  color:#111
+}
+
+.magnet-wrapper:hover .magnet-btn {
+  /* géré en JS */
+}
+
+
+
+
+
+
+
+
+
+.welcome-text {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 4rem;
+  font-weight: bold;
+  opacity: 0;
+  animation: fadeInOut 2s ease-in-out forwards;
+  z-index: 10;
+  pointer-events: none;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+}
+
+.decrypted-text {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #ff0000;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 2px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+
+
+
+
+
+
+
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 2rem;
+  height: 100vh;
+  width: 100vw; /* <-- important */
+  box-sizing: border-box;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bento-card {
+  background: linear-gradient(145deg, #1a1a1a, #111);
+  border-radius: 16px;
+  padding: 1.5rem;
+  color: white;
+  border: 1px solid #2a2a2a;
+  transition: transform 0.3s ease, box-shadow 0.4s ease, background 0.3s ease;
+  backdrop-filter: blur(4px);
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease, box-shadow 0.4s ease;
+  will-change: transform;
+  perspective: 1000px;
+  position: relative;
+  overflow: hidden;
+}
+
+.bento-card:hover {
+  transform: translateY(-6px);
+  background: linear-gradient(145deg, #1e1e1e, #151515);
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.3), 0 0 10px rgba(255, 0, 0, 0.2);
+}
+
+.bento-title {
+  color: #ff0000;
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+}
+
+.bento-text {
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+  will-change: transform, text-shadow;
+}
+
+.bento-card.large {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.bento-grid {
+  opacity: 0;
+  animation: fadeInGrid 3s ease forwards;
+}
+
+@keyframes fadeInGrid {
+  to {
+    opacity: 1;
+  }
+}
